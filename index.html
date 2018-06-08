@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    <link rel="stylesheet" href="style.css">
 
    <head>
       <title>DC Emails</title>
@@ -14,6 +15,9 @@
          <input type = "checkbox" id = "pick_up" value = "off"> Pick Up
       </form>
 
+       <br>
+       <br>
+
       <form >
          PO Number: <input type = "text" id = "po_number" />
 	    <br>
@@ -24,30 +28,33 @@
          Part Quantity: <input type = "text" id = "part_quantity" />
          <br>
          
-         <div id="need_increase_form" style="visibility:hidden"> Cetec Quantity (for increase): <input type = "text" id = "cetec_quantity" /> <br> </div>
-         <div id="early_shipment_form" style="visibility:hidden"> Due Date (for early shipment): <input type = "text" id = "due_date" /> <br> </div>
+         <div id="need_increase_form" style="display:none"> Cetec Quantity (for increase): <input type = "text" id = "cetec_quantity" /> <br> </div>
+         <div id="early_shipment_form" style="display:none"> Due Date (for early shipment): <input type = "text" id = "due_date" /> <br> </div>
 
          Buyer: <input type = "text" id = "buyer" />
 	    <br>
          Price: <input type = "text" id = "price" />
       </form>
 
+       <br>
+       <br>
+
        <form>
          Email Header: <br />
-         <textarea rows = "5" cols = "50" id = "email_header">
-            
-         </textarea>
+         <textarea rows = "1" cols = "50" id = "email_header"></textarea>
+
+         
       </form>
+       <br>
 
        <form>
          Email Body: <br />
-         <textarea rows = "5" cols = "50" id = "email_body">
-            
-         </textarea>
+         <textarea rows = "5" cols = "50" id = "email_body"></textarea>
 
-        <button onclick="copyEmailBody()">
-           Copy to clipboard
-       </button>
+        
+
+           
+
       </form>
 
        <button onclick="myScript()">
@@ -57,18 +64,29 @@
        <script>
            function needIncrease() {
                if (document.getElementById('need_increase').checked) 
-                   document.getElementById('need_increase_form').style.visibility = "visible";
+                   document.getElementById('need_increase_form').style.display = "block";
                else 
-                   document.getElementById('need_increase_form').style.visibility = "hidden";
+                   document.getElementById('need_increase_form').style.display = "none";
            }
 
            function earlyShipment() {
                if (document.getElementById('early_shipment').checked)
-                   document.getElementById('early_shipment_form').style.visibility = "visible";
+                   document.getElementById('early_shipment_form').style.display = "block";
                else
-                   document.getElementById('early_shipment_form').style.visibility = "hidden";
+                   document.getElementById('early_shipment_form').style.display = "none";
            }
 
+           function copyEmailHeader() {
+               /* Get the text field */
+               var email_body = document.getElementById("email_header");
+
+               /* Select the text field */
+               email_header.select();
+
+               /* Copy the text inside the text field */
+               document.execCommand("copy");
+           }
+           
            function copyEmailBody() {
                /* Get the text field */
                var email_body = document.getElementById("email_body");
