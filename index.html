@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+   <head>
+      <title>DC Emails</title>
+   </head>
+	
+   <body>
+       <h1> DC Emails </h1>
+       <form>
+         <input type = "checkbox" id = "need_increase" value = "off" onclick="needIncrease()"> Need Increase
+         <input type = "checkbox" id = "early_shipment" value = "off" onclick="earlyShipment()"> Early Shipment
+         <input type = "checkbox" id = "not_in_cetec" value = "off"> Not In Cetec
+         <input type = "checkbox" id = "pick_up" value = "off"> Pick Up
+      </form>
+
+      <form >
+         PO Number: <input type = "text" id = "po_number" />
+	    <br>
+         Company: <input type = "text" id = "company_name" />
+	    <br>
+         Part Number: <input type = "text" id = "part_number" />
+         <br>
+         Part Quantity: <input type = "text" id = "part_quantity" />
+         <br>
+         
+         <div id="need_increase_form" style="visibility:hidden"> Cetec Quantity (for increase): <input type = "text" id = "cetec_quantity" /> <br> </div>
+         <div id="early_shipment_form" style="visibility:hidden"> Due Date (for early shipment): <input type = "text" id = "due_date" /> <br> </div>
+
+         Buyer: <input type = "text" id = "buyer" />
+	    <br>
+         Price: <input type = "text" id = "price" />
+      </form>
+
+       <form>
+         Email Header: <br />
+         <textarea rows = "5" cols = "50" id = "email_header">
+            
+         </textarea>
+      </form>
+
+       <form>
+         Email Body: <br />
+         <textarea rows = "5" cols = "50" id = "email_body">
+            
+         </textarea>
+
+        <button onclick="copyEmailBody()">
+           Copy to clipboard
+       </button>
+      </form>
+
+       <button onclick="myScript()">
+           Generate Email
+       </button>
+
+       <script>
+           function needIncrease() {
+               if (document.getElementById('need_increase').checked) 
+                   document.getElementById('need_increase_form').style.visibility = "visible";
+               else 
+                   document.getElementById('need_increase_form').style.visibility = "hidden";
+           }
+
+           function earlyShipment() {
+               if (document.getElementById('early_shipment').checked)
+                   document.getElementById('early_shipment_form').style.visibility = "visible";
+               else
+                   document.getElementById('early_shipment_form').style.visibility = "hidden";
+           }
+
+           function copyEmailBody() {
+               /* Get the text field */
+               var email_body = document.getElementById("email_body");
+
+               /* Select the text field */
+               email_body.select();
+
+               /* Copy the text inside the text field */
+               document.execCommand("copy");
+           }
+
+           function myScript() {
+               // Get email header and body
+               var email_header = document.getElementById('email_header');
+               var email_body = document.getElementById('email_body');
+
+               // Clear email header and body
+               email_header.value = '';
+               email_body.value = '';
+
+               //Update email header
+               if(document.getElementById('po_number').value != '')
+                   email_header.value += document.getElementById('po_number').value + ' (' + document.getElementById('company_name').value + ')';
+               else
+                   email_header.value += document.getElementById('company_name').value;
+
+               email_body.value += "Hi " + document.getElementById('buyer').value + ",\n\n";
+
+               if (document.getElementById('pick_up').checked) {
+                   email_body.value += 'Your items are ready for pick up in Receiving Area, thanks.';
+               } else {
+                   email_body.value += "Received P/N " + document.getElementById('part_number').value + ", qty of " + document.getElementById('part_quantity').value + ".  ";
+
+                   if (document.getElementById('need_increase').checked) {
+                       email_body.value += 'PO in Cetec is only open for qty of ' + document.getElementById('cetec_quantity').value + ', needs increase.  ';
+                   }
+                   if (document.getElementById('early_shipment').checked) {
+                       email_body.value += 'It is early shipment due for ' + document.getElementById('part_number').value + '.  ';
+                   }
+                   if (document.getElementById('not_in_cetec').checked) {
+                       email_body.value += 'PO not in Cetec.  ';
+                   }
+
+                   email_body.value += "Please advise, thanks.";
+               }
+               
+           }
+        </script>
+   </body>
+	
+</html>
