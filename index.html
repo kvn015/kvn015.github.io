@@ -63,7 +63,34 @@
            Generate Email
        </button>
 
+       <br>
+       <br>
+
+       <button onclick="clearForm()">
+           Clear form
+       </button>
+
        <script>
+           function clearForm() {
+               document.getElementById('po_number').value = '';
+               document.getElementById('company_name').value = "";
+               document.getElementById('part_number').value = "";
+               document.getElementById('part_quantity').value = "";
+               document.getElementById('cetec_quantity').value = "";
+               document.getElementById('due_date').value = "";
+               document.getElementById('buyer').value = "";
+               document.getElementById('price').value = "";
+               document.getElementById('email_header').value = "";
+               document.getElementById('email_body').value = "";
+               document.getElementById('need_increase').checked = false;
+               document.getElementById('early_shipment').checked = false;
+               document.getElementById('not_in_cetec').checked = false;
+               document.getElementById('no_c_of_c').checked = false;
+               document.getElementById('high_value').checked = false;
+               document.getElementById('pick_up').checked = false;
+
+           }
+
            function needIncrease() {
                if (document.getElementById('need_increase').checked) 
                    document.getElementById('need_increase_form').style.display = "block";
