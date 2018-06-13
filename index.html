@@ -12,6 +12,8 @@
          <input type = "checkbox" id = "need_increase" value = "off" onclick="needIncrease()"> Need Increase
          <input type = "checkbox" id = "early_shipment" value = "off" onclick="earlyShipment()"> Early Shipment
          <input type = "checkbox" id = "not_in_cetec" value = "off"> Not In Cetec
+         <input type = "checkbox" id = "no_c_of_c" value = "off"> No C of C
+         <input type = "checkbox" id = "high_value" value = "off"> High Value
          <input type = "checkbox" id = "pick_up" value = "off"> Pick Up
       </form>
 
@@ -124,10 +126,16 @@
                        email_body.value += 'PO in Cetec is only open for qty of ' + document.getElementById('cetec_quantity').value + ', needs increase.  ';
                    }
                    if (document.getElementById('early_shipment').checked) {
-                       email_body.value += 'It is early shipment due for ' + document.getElementById('part_number').value + '.  ';
+                       email_body.value += 'It is early shipment due for ' + document.getElementById('due_date').value + '.  ';
                    }
                    if (document.getElementById('not_in_cetec').checked) {
                        email_body.value += 'PO not in Cetec.  ';
+                   }
+                   if (document.getElementById('no_c_of_c').checked) {
+                       email_body.value += 'Supplier did not receive C of C for this part.  ';
+                   }
+                   if (document.getElementById('high_value').checked) {
+                       email_body.value += 'It is a high value item.  ';
                    }
 
                    email_body.value += "Please advise, thanks.";
